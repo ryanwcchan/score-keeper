@@ -1,58 +1,60 @@
-const p1Counter = document.querySelector('#p1-score')
-const p2Counter = document.querySelector('#p2-score')
-
-const p1Btn = document.querySelector('#p1-button')
-const p2Btn = document.querySelector('#p2-button')
 const resetBtn = document.querySelector('#reset-button')
-
 const playTo = document.querySelector('#play-to')
 
-let p1Score = 0;
-let p2Score = 0;
 let winningScore = 3;
 let isGameOver = false;
 
-p1Btn.addEventListener('click', () => {
-    updateScore(p1Score, p1Counter)
-    p1Score++;
+const p1 = {
+    score: 0,
+    button: document.querySelector('#p1-button'),
+    display: document.querySelector('#p1-score')
+}
+
+const p2 = {
+    score: 0,
+    button: document.querySelector('#p2-button'),
+    display: document.querySelector('#p2-score')
+}
+
+p1.button.addEventListener('click', () => {
+    updateScore(p1, p1.display)
 });
 
-p2Btn.addEventListener('click', () => {
-    updateScore(p2Score, p2Counter)
-    p2Score++;
+p2.button.addEventListener('click', () => {
+    updateScore(p2, p2.display)
 });
 
 resetBtn.addEventListener('click', () => {
     isGameOver = false;
-    p1Score = 0;
-    p2Score = 0;
-    p1Counter.classList.remove('winner', 'loser')
-    p2Counter.classList.remove('winner', 'loser')
-    updateDisplay(p1Score, p1Counter)
-    updateDisplay(p2Score, p2Counter)
+    p1.score = 0;
+    p2.score = 0;
+    p1.display.classList.remove('has-text-success', 'has-text-danger')
+    p2.display.classList.remove('has-text-success', 'has-text-danger')
+    updateDisplay(p1.score, p1.display)
+    updateDisplay(p2.score, p2.display)
 })
 
 playTo.addEventListener('change', function() {
     winningScore = parseInt(this.value)
 })
 
-function updateScore(playerScore, playerCounter) {
+function updateScore(player, playerDisplay) {
     if(!isGameOver) {
-        playerScore += 1;
-        updateDisplay(playerScore, playerCounter)
-        if(playerScore === winningScore) {
+        player.score += 1;
+        updateDisplay(player.score, playerDisplay)
+        if(player.score === winningScore) {
             isGameOver = true;
-            playerCounter.classList.add('winner')
+            playerDisplay.classList.add('has-text-success')
             const scoreContainer = document.querySelector('#score-container');
             scoreContainer.querySelectorAll('span').forEach(e => {
-                if(e !== playerCounter) {
-                    e.classList.add('loser')
+                if(e !== playerDisplay) {
+                    e.classList.add('has-text-danger')
                 }
             })
         }
     }
 }
 
-function updateDisplay(playerScore, playerCounter) {
-    playerCounter.textContent = playerScore;
+function updateDisplay(playerScore, playerDisplay) {
+    playerDisplay.textContent = playerScore;
 }
