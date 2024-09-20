@@ -17,40 +17,37 @@ const p2 = {
 }
 
 p1.button.addEventListener('click', () => {
-    updateScore(p1, p1.display)
+    updateScore(p1, p2)
 });
 
 p2.button.addEventListener('click', () => {
-    updateScore(p2, p2.display)
+    updateScore(p2, p1)
 });
 
 resetBtn.addEventListener('click', () => {
     isGameOver = false;
-    p1.score = 0;
-    p2.score = 0;
-    p1.display.classList.remove('has-text-success', 'has-text-danger')
-    p2.display.classList.remove('has-text-success', 'has-text-danger')
-    updateDisplay(p1.score, p1.display)
-    updateDisplay(p2.score, p2.display)
+    for (let p of [p1, p2]) {
+        p.score = 0
+        p.display.classList.remove('has-text-success', 'has-text-danger')
+        updateDisplay(p.score, p.display)
+        p.button.disabled = false;
+    }
 })
 
 playTo.addEventListener('change', function() {
     winningScore = parseInt(this.value)
 })
 
-function updateScore(player, playerDisplay) {
+function updateScore(player, opponent) {
     if(!isGameOver) {
         player.score += 1;
-        updateDisplay(player.score, playerDisplay)
+        updateDisplay(player.score, player.display)
         if(player.score === winningScore) {
             isGameOver = true;
-            playerDisplay.classList.add('has-text-success')
-            const scoreContainer = document.querySelector('#score-container');
-            scoreContainer.querySelectorAll('span').forEach(e => {
-                if(e !== playerDisplay) {
-                    e.classList.add('has-text-danger')
-                }
-            })
+            player.display.classList.add('has-text-success')
+            opponent.display.classList.add('has-text-danger')
+            player.button.disabled = true;
+            opponent.button.disabled = true;
         }
     }
 }
