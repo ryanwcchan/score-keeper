@@ -20,12 +20,24 @@ p2Btn.addEventListener('click', () => {
     p2Score++;
 });
 
+resetBtn.addEventListener('click', () => {
+    isGameOver = false;
+    p1Score = 0;
+    p2Score = 0;
+    updateDisplay(p1Score, p1Counter)
+    updateDisplay(p2Score, p2Counter)
+})
+
 function updateScore(playerScore, playerCounter) {
     if(!isGameOver) {
         playerScore += 1;
-        playerCounter.textContent = playerScore;
+        updateDisplay(playerScore, playerCounter)
         if(playerScore === winningScore) {
             isGameOver = true;
         }
     }
+}
+
+function updateDisplay(playerScore, playerCounter) {
+    playerCounter.textContent = playerScore;
 }
