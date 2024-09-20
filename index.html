@@ -3,13 +3,64 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="styles.css" />
     <title>Score Keeper</title>
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/bulma@1.0.2/css/bulma.min.css"
+    />
   </head>
   <body>
-    <h1><span id="p1-score">0</span> to <span id="p2-score">0</span></h1>
-    <button id="p1-button">+1 Player 1</button>
-    <button id="p2-button">+1 Player 2</button>
-    <button id="reset-button">Reset</button>
+    <div class="container">
+      <div class="columns">
+        <div class="column is-half is-offset-one-quarter">
+          <div class="card">
+            <header class="card-header">
+              <p class="card-header-title">Score Keeper</p>
+            </header>
+            <div class="card-content">
+              <div class="content">
+                <h1 class="title is-1" id="score-container">
+                  <span id="p1-score">0</span> to <span id="p2-score">0</span>
+                </h1>
+                <p class="subtitle">
+                  Use the buttons below to increment score.
+                </p>
+                <label for="" class="label is-large is-inline">
+                  Playing to
+                </label>
+                <div class="select is-rounded">
+                  <select name="" id="play-to">
+                    <option value="3">3</option>
+                    <option value="4">4</option>
+                    <option value="5">5</option>
+                    <option value="6">6</option>
+                    <option value="7">7</option>
+                    <option value="8">8</option>
+                    <option value="9">9</option>
+                    <option value="10">10</option>
+                  </select>
+                </div>
+              </div>
+            </div>
+            <footer class="card-footer">
+              <button class="button is-primary card-footer-item" id="p1-button">
+                +1 Player 1
+              </button>
+              <button class="button is-info card-footer-item" id="p2-button">
+                +1 Player 2
+              </button>
+              <button
+                class="button is-danger card-footer-item"
+                id="reset-button"
+              >
+                Reset
+              </button>
+            </footer>
+          </div>
+        </div>
+      </div>
+    </div>
 
     <script src="app.js"></script>
   </body>
